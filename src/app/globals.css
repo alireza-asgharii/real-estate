@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  font-weight: 200;
-}
 
 @layer utilities {
   .text-balance {
