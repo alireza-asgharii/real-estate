@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
         className={`${yekan.className} max-w-7xl mx-auto`}
       >
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen px-2">{children}</main>
         <Footer />
       </body>
     </html>
