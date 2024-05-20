@@ -4,7 +4,7 @@ import "./globals.css";
 //Layout
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
 
 export const metadata = {
