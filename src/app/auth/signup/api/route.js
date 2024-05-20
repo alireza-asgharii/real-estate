@@ -3,6 +3,7 @@ import User from "@/models/User";
 
 import connectDB from "@/utils/connectDB";
 import { hashPassword } from "@/utils/auth";
+import { redirect } from "next/navigation";
 
 
 export async function POST(req) {
