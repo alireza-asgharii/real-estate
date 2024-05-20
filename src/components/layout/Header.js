@@ -8,7 +8,7 @@ const Header = () => {
         <Link href="/advertisements" className="px-2 py-1 hover:bg-white hover:text-black transition-colors rounded-md">آگهی ها </Link>
       </div>
       <div>
-        <Link href="/signin" className="px-3 py-1 hover:bg-white hover:text-black transition-colors rounded-md">ورود</Link>
+        <Link href="/auth/signin" className="px-3 py-1 hover:bg-white hover:text-black transition-colors rounded-md">ورود</Link>
       </div>
     </header>
   );
