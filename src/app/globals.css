@@ -13,4 +13,7 @@
   a {
     @apply cursor-default md:cursor-pointer;
   }
+  button {
+    @apply disabled:cursor-not-allowed cursor-default md:cursor-pointer
+  }
 }
