@@ -24,32 +24,40 @@ const handler = NextAuth({
           throw new Error("لطفا اطلاعات معتبر وارد کنید");
         }
 
-        try {
-          const user = await User.findOne({ email });
-          if (!user) {
-            throw new Error("حساب کاربری با این ایمیل وجود ندارد");
-          }
-
-          const isValid = await verifyPassword(password, user.password);
-          if (!isValid) {
-            user.lastAttemptFailed = Date.now();
-            await user.save();
-            throw new Error("رمز عبور اشتباه است");
-          }
-
-          const startDate = moment(user.lastAttemptFailed);
-          const endDate = moment();
-          const differenceInMinutes = endDate.diff(startDate, "minutes");
-
-          if (differenceInMinutes < 5)
-            throw new Error(
-              "درخواست های ورود بیش از حد بود. لطفا بعدا امتحان کنید."
-            );
-
-          return { email: user.email };
-        } catch (error) {
-          throw new Error("مشکلی در سرور رخ داد");
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("حساب کاربری با این ایمیل وجود ندارد");
         }
+        console.log(user);
+
+        // AttemptFailed
+        const startDate = moment(user.lastAttemptFailed);
+        const endDate = moment();
+
+        const differenceInMinutes = endDate.diff(startDate, "minutes");
+        if (!!user.lastAttemptFailed && differenceInMinutes > 3)
+          user.lastAttemptFailedNumber = 0;
+        await user.save();
+        if (
+          !!user.lastAttemptFailed &&
+          differenceInMinutes < 3 &&
+          !!user.lastAttemptFailedNumber &&
+          user.lastAttemptFailedNumber > 5
+        )
+          throw new Error(
+            "درخواست های ورود بیش از حد بود. لطفا بعدا امتحان کنید."
+          );
+
+        const isValid = await verifyPassword(password, user.password);
+        if (!isValid) {
+          user.lastAttemptFailed = Date.now();
+          user.lastAttemptFailedNumber =
+            (user.lastAttemptFailedNumber ?? 1) + 1;
+          await user.save();
+          throw new Error("رمز عبور اشتباه است");
+        }
+
+        return { email: user.email };
       },
     }),
   ],

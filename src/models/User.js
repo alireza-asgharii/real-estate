@@ -32,6 +32,9 @@ const userSchema = new Schema({
   lastAttemptFailed: {
     type: Date,
   },
+  lastAttemptFailedNumber: {
+    type: Number,
+  },
 });
 
 const User = models.User || model("User", userSchema);
