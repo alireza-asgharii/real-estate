@@ -5,7 +5,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import moment from "moment";
 
-const handler = NextAuth({
+export const authOptions = {
   session: { strategy: "jwt" },
   providers: [
     CredentialsProvider({
@@ -57,10 +57,12 @@ const handler = NextAuth({
           throw new Error("رمز عبور اشتباه است");
         }
 
-        return { email: user.email };
+        return { email: user.email, id: user._id };
       },
     }),
   ],
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
