@@ -17,8 +17,8 @@ const userSchema = new Schema({
     type: String,
   },
   phone: {
-    type: String,
-    unique: true,
+    type: Number,
+    required: false,
   },
   role: {
     type: String,
@@ -28,6 +28,9 @@ const userSchema = new Schema({
     type: Date,
     immutable: true,
     default: () => Date.now(),
+  },
+  lastAttemptFailed: {
+    type: Date,
   },
 });
 
