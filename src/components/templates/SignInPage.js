@@ -1,6 +1,5 @@
 "use client";
 
-import { useSignUp } from "@/hooks/useMutation";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import SignInFormInput from "../modules/SignInFormInput";
@@ -9,6 +8,7 @@ import toast from "react-hot-toast";
 import { formValidation } from "@/utils/validation";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { revalidateSignIn } from "@/actions/actions";
 
 const SignInPage = () => {
   const router = useRouter();
@@ -53,6 +53,7 @@ const SignInPage = () => {
         toast.error(res?.error);
       } else if (res.ok) {
         toast.success("ورود با موفیت انجام شد");
+        await revalidateSignIn()
         router.replace("/");
       }
     });
