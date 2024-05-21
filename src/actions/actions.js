@@ -2,6 +2,7 @@
 
 import User from "@/models/User";
 import connectDB from "@/utils/connectDB";
+import { revalidatePath } from "next/cache";
 
 export async function checkEmail(email) {
   try {
@@ -26,4 +27,8 @@ export async function checkEmail(email) {
       error: "مشکلی در سرور رخ داد",
     };
   }
+}
+
+export async function revalidateSignIn() {
+  revalidatePath("/", "layout");
 }
