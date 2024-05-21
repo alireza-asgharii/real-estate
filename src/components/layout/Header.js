@@ -2,8 +2,6 @@ import Link from "next/link";
 import HeaderButton from "../modules/HeaderButton";
 
 const Header = async () => {
-  console.log('render hedaer')
-
   return (
     <header className="flex justify-between items-center text-white rounded-sm md:rounded-md bg-header-theme px-2 py-3">
       <div>
