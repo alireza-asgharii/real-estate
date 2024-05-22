@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <ReactQueryProvider>
           <SessionProviders>
             <Header />
-            <main className="min-h-screen px-2">{children}</main>
+            <main className="min-h-screen pt-3">{children}</main>
             <Footer />
             <Toaster />
           </SessionProviders>
