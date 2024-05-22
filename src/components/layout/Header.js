@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeaderButton from "../modules/HeaderButton";
+import DashMeButton from "../modules/DashMeButton";
 
 const Header = async () => {
   return (
@@ -18,7 +19,10 @@ const Header = async () => {
           آگهی ها{" "}
         </Link>
       </div>
-     <HeaderButton />
+      <div className="flex items-center">
+        <HeaderButton />
+        <DashMeButton />
+      </div>
     </header>
   );
 };
