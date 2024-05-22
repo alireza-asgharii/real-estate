@@ -16,6 +16,20 @@ module.exports = {
         "header-theme": "#5463FF",
         "footer-theme": "#10439F",
       },
+      keyframes: {
+        closeMenu: {
+          "0%": { transform: "translate(0px)" },
+          "100%": { transform: "translate(-600px)" },
+        },
+        openMenu: {
+          "0%": { transform: "translate(-500px)" },
+          "100%": { transform: "translate(0px)" },
+        },
+      },
+      animation: {
+        opneMenu: "openMenu 0.4s ease forwards",
+        closeMenu: "closeMenu 0.4s ease forwards",
+      },
     },
   },
   plugins: [],
