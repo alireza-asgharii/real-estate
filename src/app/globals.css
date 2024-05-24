@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -14,6 +13,18 @@
     @apply cursor-default md:cursor-pointer;
   }
   button {
-    @apply disabled:cursor-not-allowed cursor-default md:cursor-pointer
+    @apply disabled:cursor-not-allowed cursor-default md:cursor-pointer;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  textarea::-webkit-scrollbar {
+    width: 0px;
   }
 }
