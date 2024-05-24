@@ -1,9 +1,7 @@
+import DashboardAddPage from "@/components/templates/DashboardAddPage";
+
 const page = () => {
-  return (
-    <div>
-      add page
-    </div>
-  );
+  return <DashboardAddPage />;
 };
 
 export default page;
