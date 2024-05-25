@@ -23,7 +23,7 @@ const adSchema = new Schema(
       reqired: true,
     },
     realState: {
-      type: Number,
+      type: String,
       reqired: true,
     },
     constructionDate: {
