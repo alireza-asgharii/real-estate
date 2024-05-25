@@ -60,7 +60,7 @@ export async function POST(req) {
     const ad = await Ad.create({ ...body, price: +price, userId: user._id });
     console.log(ad);
 
-    return NextResponse.json("test");
+    return NextResponse.json({ message: "آگهی ثبت شد" }, { status: 201 });
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(

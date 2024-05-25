@@ -34,3 +34,72 @@ export const formValidation = (form, type) => {
 
   return error;
 };
+
+export const adFormValidation = (form) => {
+  const error = {};
+  const phoneRegx = /^(\+98|0)?9\d{9}$/g
+  ;
+  const {
+    title,
+    description,
+    location,
+    phone,
+    price,
+    realState,
+    constructionDate,
+    category
+  } = form;
+
+  if (title.trim().length === 0) {
+    error.title= 'عنوان آگهی خود را وارد کنید'
+  } else {
+    delete error.title
+  }
+
+  if (description.trim().length === 0) {
+    error.description= 'توضیحات آگهی خود را وارد کنید'
+  } else {
+    delete error.description
+  }
+
+  if (location.trim().length === 0) {
+    error.location= 'محل ملک خود را وارد کنید'
+  } else {
+    delete error.location
+  }
+
+  if (phone.trim().length === 0) {
+    error.phone= 'شماره تماس خود را وارد کنید'
+  } if (!phoneRegx.test(phone)) {
+    error.phone= 'شماره تماس معتبر وارد کنید'
+  } else {
+    delete error.phone
+  }
+
+  if (price.trim().length === 0) {
+    error.price= 'قیمت ملک خود را وارد کنید'
+  } else {
+    delete error.price
+  }
+
+  if (realState.trim().length === 0) {
+    error.realState= 'بنگاهی که درآن املاک شما ثبت است را وارد کنید'
+  } else {
+    delete error.realState
+  }
+
+  if (!constructionDate) {
+    error.constructionDate= 'سال ساخت ملک خود را وارد کنید'
+  } else {
+    delete error.constructionDate
+  }
+
+  if (!category) {
+    error.category= 'دسته بندی ملک خود را انتخاب کنید'
+  } else {
+    delete error.category
+  }
+
+
+  return error;
+};
