@@ -29,7 +29,7 @@ const TextInput = ({
       {!textArea && (
         <label
           name={name}
-          className={`border-2 ${
+          className={`border-2  ${
             isError[name] && !isFocuse && fisrt ? "border-red-400" : ""
           } relative my-[7px] rounded-md`}
           onFocus={focusHandler}
@@ -83,10 +83,8 @@ const TextInput = ({
             {placeholder}
           </span>
 
-          <textArea
-            className={`px-2 w-full py-[5px] resize-none inline-block rounded-md outline-none ${
-              isError[name] ? "outline-red-400" : ""
-            } transition-colors`}
+          <textarea
+            className={`px-2 w-full py-[5px] resize-none inline-block rounded-md outline-none  transition-colors`}
             name={name}
             value={form[name]}
             onFocus={() => setFirst(true)}
