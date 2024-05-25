@@ -64,7 +64,7 @@ const DashboardAddPage = () => {
         });
 
         // redirect to my-profile
-        router.push('/dashboard')
+        router.push('/dashboard/my-ads')
       },
       onError: (e) => toast.error(e.response.data.error),
     });
