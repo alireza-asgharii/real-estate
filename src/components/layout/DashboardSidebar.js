@@ -18,7 +18,7 @@ const DashboardSidebar = async () => {
             <NavLink name="حساب کاربری" href="/dashboard" />
           </li>
           <li>
-            <NavLink name="آگهی های من" href="/dashboard/my-profile" />
+            <NavLink name="آگهی های من" href="/dashboard/my-ads" />
           </li>
           <li>
             <NavLink name="ثبت آگهی" href="/dashboard/add" />
