@@ -8,7 +8,7 @@ const RadioList = ({ form, setForm }) => {
     <div className="flex justify-between py-2">
       <RadioItem
         title="ویلا"
-        value="vila"
+        value="villa"
         changeHandler={changeHandler}
         chekedItem={form.category}
       />
