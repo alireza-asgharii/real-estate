@@ -76,7 +76,7 @@ export const adFormValidation = (form) => {
     delete error.phone
   }
 
-  if (price.trim().length === 0) {
+  if (price.toString().trim().length === 0) {
     error.price= 'قیمت ملک خود را وارد کنید'
   } else {
     delete error.price
