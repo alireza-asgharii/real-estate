@@ -1,7 +1,6 @@
 import DashboardCard from "../modules/DashboardCard";
 
 const MyAdsPage = async ({ ads }) => {
-  console.log(ads);
   return (
     <div>
       {ads.length === 0 && <p>هیچ آگهی ثبت نشده است.</p>}
