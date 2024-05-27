@@ -5,15 +5,15 @@ import DashboardCardButton from "./DashboardCardButton";
 const DashboardCard = ({ data }) => {
   const { _id } = data;
   return (
-    <div className="w-full sm:w-fit">
+    <div className="w-full sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors">
       <Link
-      title="مشاهده آگهی"
+        title="مشاهده آگهی"
         href="/"
-        className="inline-block md:flex flex-col justify-between border-2 max-md:w-full md:min-w-52 min-h-40 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg shadow-header-theme transition-colors"
+        className="inline-block w-full md:w-fit md:min-w-52 min-h-40"
       >
         <Card data={data} />
-        <DashboardCardButton adsId={JSON.parse(JSON.stringify(_id))} />
       </Link>
+      <DashboardCardButton adsId={JSON.parse(JSON.stringify(_id))} />
     </div>
   );
 };
