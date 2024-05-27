@@ -32,3 +32,8 @@ export async function checkEmail(email) {
 export async function revalidateSignIn() {
   revalidatePath("/", "layout");
 }
+
+
+export async function revalidate(path) {
+  revalidatePath(path);
+}
