@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import TextInput from "../modules/TextInput";
 import { p2e } from "@/utils/numberFormat";
 import RadioList from "../modules/RadioList";
@@ -10,8 +10,11 @@ import toast from "react-hot-toast";
 import { useCreateAd } from "@/hooks/useMutation";
 import { useRouter } from "next/navigation";
 import { adFormValidation } from "@/utils/validation";
+import { editAd } from "@/actions/dashboardActions";
+import Spiner from "../modules/Spiner";
+import { revalidate } from "@/actions/actions";
 
-const DashboardAddPage = () => {
+const DashboardAddPage = ({ ad }) => {
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -24,9 +27,19 @@ const DashboardAddPage = () => {
     rules: [],
     amenities: [],
   });
+
+  useEffect(() => {
+    if (ad) setForm(ad);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [isError, setError] = useState(adFormValidation(form));
   const { mutate, isPending, error, data } = useCreateAd();
   // console.log({ mutate, isPending, error, data });
+
+  //action loading
+  const [editPending, startTransiotion] = useTransition();
+
   const router = useRouter();
 
   const changehandler = (e) => {
@@ -64,9 +77,26 @@ const DashboardAddPage = () => {
         });
 
         // redirect to my-profile
-        router.push('/dashboard/my-ads')
+        revalidate("/dashboard/my-ads");
+        router.push("/dashboard/my-ads");
       },
       onError: (e) => toast.error(e.response.data.error),
+    });
+  };
+
+  const editHandler = () => {
+    if (Object.keys(isError).length !== 0) {
+      toast.error(Object.values(isError)[0]);
+      return;
+    }
+    startTransiotion(async () => {
+      const res = await editAd(form);
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
+      toast.success(res.message);
+      router.push("/dashboard/my-ads");
     });
   };
 
@@ -131,11 +161,15 @@ const DashboardAddPage = () => {
         <DatePickerInput form={form} setForm={setForm} isError={isError} />
 
         <button
-          onClick={submitHandler}
+          disabled={isPending || editPending}
+          onClick={ad ? editHandler : submitHandler}
           type="button"
-          className="bg-header-theme p-2 rounded-md text-white mt-4"
+          className="bg-header-theme p-2 rounded-md text-white mt-4 disabled:cursor-not-allowed flex justify-center items-center"
         >
-          ثبت
+          <span className="pl-2">{ad ? "بروزرسانی آگهی" : "ثبت آگهی"}</span>
+          {(isPending || editPending) && (
+            <Spiner w="w-4" h="h-4" border="border-2" />
+          )}
         </button>
       </form>
     </div>
