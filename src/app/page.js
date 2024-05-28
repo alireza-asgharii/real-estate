@@ -1,5 +1,5 @@
+import HomePage from "@/components/templates/HomePage";
+
 export default function Home() {
-  return (
-    <h3>صفحه اصلی</h3>
-  );
+  return <HomePage />;
 }
