@@ -11,6 +11,7 @@ import {
 import { IoCallOutline } from "react-icons/io5";
 import { e2p, priceFormat } from "@/utils/numberFormat";
 import { PiBuildingApartmentBold } from "react-icons/pi";
+import { categoris } from "@/constant/icons";
 
 const AdDetailsPage = ({
   data: {
@@ -26,13 +27,6 @@ const AdDetailsPage = ({
     realState,
   },
 }) => {
-  const categoris = {
-    villa: { icon: <MdOutlineVilla />, fa: "ویلا" },
-    apartment: { icon: <PiBuildingApartmentBold />, fa: "آپارتمان" },
-    earth: { icon: <MdOutlineLandslide />, fa: "زمین" },
-    store: { icon: <MdOutlineStorefront />, fa: "مغازه" },
-  };
-
   return (
     <div className="md:flex flex-row-reverse gap-2">
       <aside className="border-2 p-1 rounded-md md:w-1/6 my-2 md:my-0">

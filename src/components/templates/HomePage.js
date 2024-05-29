@@ -1,25 +1,9 @@
 import Link from "next/link";
 import HomePageCard from "../modules/HomePageCard";
 import { FaMountainCity } from "react-icons/fa6";
+import { cities, services, types } from "@/constant/homePageData";
 
 const HomePage = () => {
-  const services = ["خرید", "فروش ", "رهن", "اجاره"];
-  const cities = [
-    "مازندران",
-    "تهران ",
-    "شیراز",
-    "اصفهان",
-    "بوشهر",
-    "اهواز",
-    "گلستان",
-    "کردستان",
-  ];
-  const types = [
-    { name: "خانه ویلایی", path: "villa" },
-    { name: "آپارتمان", path: "apartment" },
-    { name: "مغازه", path: "store" },
-    { name: "زمین", path: "earth" },
-  ];
   return (
     <div>
       <header className="w-full flex justify-center items-center flex-col h-40 py-32">
