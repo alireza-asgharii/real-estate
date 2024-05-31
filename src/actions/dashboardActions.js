@@ -73,6 +73,8 @@ export const editAd = async (data) => {
     ad.category = category;
     ad.rules = rules;
     ad.amenities = amenities;
+    ad.status = "waiting";
+    ad.published = false;
     await ad.save();
     revalidatePath("/dashboard/my-ads");
     return {
