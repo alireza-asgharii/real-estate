@@ -1,3 +1,4 @@
+import AdminPage from "@/components/templates/AdminPage";
 import { getUserdetails } from "@/utils/cachedData";
 import { redirect } from "next/navigation";
 
@@ -9,7 +10,7 @@ const Admin = async () => {
   const user = await getUserdetails();
 
   if (user.role !== "ADMIN") redirect("/dashboard");
-  return <div>admin</div>;
+  return <AdminPage />;
 };
 
 export default Admin;
