@@ -51,6 +51,11 @@ const adSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    status: {
+      type: String,
+      enum: ['waiting', 'rejected', 'verified'],
+      default: "waiting",
+    },
   },
   { timestamps: true }
 );
