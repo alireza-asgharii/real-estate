@@ -13,6 +13,8 @@ import { adFormValidation } from "@/utils/validation";
 import { editAd } from "@/actions/dashboardActions";
 import Spiner from "../modules/Spiner";
 import { revalidate } from "@/actions/actions";
+import Image from "next/image";
+import supabase from "@/lib/supabase";
 
 const DashboardAddPage = ({ ad }) => {
   const [form, setForm] = useState({
@@ -26,8 +28,10 @@ const DashboardAddPage = ({ ad }) => {
     category: "",
     rules: [],
     amenities: [],
+    images: null,
   });
-
+  const [fileURL, setFileURL] = useState(null);
+  
   useEffect(() => {
     if (ad) setForm(ad);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,8 +46,21 @@ const DashboardAddPage = ({ ad }) => {
 
   const router = useRouter();
 
-  const changehandler = (e) => {
+  const changehandler = async (e) => {
     const { name, value } = e.target;
+    if (name === "images") {
+      const file = e.target.files[0];
+      const { data, error } = await supabase.storage
+        .from("images2")
+        .upload(`images/${Math.floor(Math.random() * 10)}-${Date.now()}.png`, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+      console.log({ data, error });
+      setFileURL(URL.createObjectURL(file));
+      setForm({ ...form, images: data.path });
+      return;
+    }
     setForm({ ...form, [name]: p2e(value) });
   };
 
@@ -74,6 +91,7 @@ const DashboardAddPage = ({ ad }) => {
           category: "",
           rules: [],
           amenities: [],
+          images: null,
         });
 
         // redirect to my-profile
@@ -152,6 +170,10 @@ const DashboardAddPage = ({ ad }) => {
           isError={isError}
           changehandler={changehandler}
         />
+        <input type="file" name="images" onChange={changehandler} />
+        {fileURL && (
+          <Image src={fileURL ?? ""} width={300} height={300} alt="image" />
+        )}
 
         <RadioList setForm={setForm} form={form} />
 
