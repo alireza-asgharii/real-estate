@@ -53,8 +53,11 @@ const adSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['waiting', 'rejected', 'verified'],
+      enum: ["waiting", "rejected", "verified"],
       default: "waiting",
+    },
+    images: {
+      type: String,
     },
   },
   { timestamps: true }
