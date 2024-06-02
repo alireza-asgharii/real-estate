@@ -15,6 +15,8 @@ import Spiner from "../modules/Spiner";
 import { revalidate } from "@/actions/actions";
 import Image from "next/image";
 import supabase from "@/lib/supabase";
+import { IoIosCloudDone } from "react-icons/io";
+import { MdDeleteOutline } from "react-icons/md";
 
 const DashboardAddPage = ({ ad }) => {
   const [form, setForm] = useState({
@@ -28,10 +30,11 @@ const DashboardAddPage = ({ ad }) => {
     category: "",
     rules: [],
     amenities: [],
-    images: null,
+    images: [],
   });
-  const [fileURL, setFileURL] = useState(null);
-  
+  const [filesURL, setFilesURL] = useState([]);
+  const [imagesList, setImagesList] = useState([]);
+
   useEffect(() => {
     if (ad) setForm(ad);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,21 +47,47 @@ const DashboardAddPage = ({ ad }) => {
   //action loading
   const [editPending, startTransiotion] = useTransition();
 
+  const [uploadPending, startUpload] = useTransition();
+
   const router = useRouter();
 
   const changehandler = async (e) => {
     const { name, value } = e.target;
     if (name === "images") {
-      const file = e.target.files[0];
-      const { data, error } = await supabase.storage
-        .from("images2")
-        .upload(`images/${Math.floor(Math.random() * 10)}-${Date.now()}.png`, file, {
-          cacheControl: "3600",
-          upsert: false,
+      const files = e.target.files;
+      if (filesURL.length > 4) {
+        toast.error("حداکثر میتوانید 4 تصویر را اپلود کنید");
+        return;
+      }
+
+      if (files.length > 4) {
+        toast.error("حداکثر میتوانید 4 تصویر را اپلود کنید");
+      }
+
+      Array.from(files, (item, index) => {
+        if (index <= 3 && imagesList.length <= 4) return item;
+      }).forEach((file) => {
+        console.log(file);
+        if (!file) return;
+        setImagesList((prev) => [...prev, file?.name ?? "بدون نام"]);
+        const localImageUrl = URL.createObjectURL(file);
+        setFilesURL((prev) => [...prev, localImageUrl]);
+        startUpload(async () => {
+          const { data, error } = await supabase.storage
+            .from("images2")
+            .upload(
+              `images/${Math.floor(Math.random() * 10)}-${Date.now()}.png`,
+              file,
+              {
+                cacheControl: "3600",
+                upsert: false,
+              }
+            );
+          console.log({ data, error });
+          setForm({ ...form, images: [...form.images, data.path] });
         });
-      console.log({ data, error });
-      setFileURL(URL.createObjectURL(file));
-      setForm({ ...form, images: data.path });
+      });
+
       return;
     }
     setForm({ ...form, [name]: p2e(value) });
@@ -91,7 +120,7 @@ const DashboardAddPage = ({ ad }) => {
           category: "",
           rules: [],
           amenities: [],
-          images: null,
+          images: [],
         });
 
         // redirect to my-profile
@@ -118,9 +147,69 @@ const DashboardAddPage = ({ ad }) => {
     });
   };
 
+  const deleteImages = (index) => {
+    const fileList = [...filesURL];
+    fileList.splice(index, 1);
+    setFilesURL(fileList);
+
+    const imgList = [...imagesList];
+    imgList.splice(index, 1);
+    setImagesList(imgList);
+  };
+
   return (
     <div className="text-sm">
       <form className="md:w-1/3 flex flex-col ">
+        <div className="py-3 flex gap-1 ">
+          {filesURL.map((item, index) => (
+            <div className="relative w-fit" key={index}>
+              <span
+                onClick={() => deleteImages(index)}
+                className="absolute top-1 left-1 text-red-500 md:cursor-pointer"
+              >
+                <MdDeleteOutline />
+              </span>
+              {uploadPending && (
+                <span className="inline-block absolute top-1/2 pt-2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+                  <Spiner w="w-4" h="h-4" border="border-[3px]" />
+                </span>
+              )}
+              {!uploadPending && (
+                <span className="text-white inline-block absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+                  <IoIosCloudDone />
+                </span>
+              )}
+              <Image
+                className={`w-16 h-16 rounded-md`}
+                src={item}
+                width={300}
+                height={300}
+                alt="image"
+              />
+            </div>
+          ))}
+        </div>
+        <label className="group overflow-hidden border-2 p-2 rounded-md flex items-center md:cursor-pointer">
+          <input
+            type="file"
+            multiple
+            name="images"
+            onChange={changehandler}
+            className="hidden"
+          />
+          <span className="group-hover:bg-slate-950 text-sm group-hover:text-white transition-colors  rounded-md p-1 ml-3">
+            انتخاب فایل
+          </span>
+          <p className="text-xs flex overflow-hidden w-4/6">
+            {!imagesList.length && <span>هیچ فایلی انتخاب نشده است</span>}
+            {imagesList.map((item, index) => (
+              <span key={index} className="px-1 min-w-fit">
+                {item}
+              </span>
+            ))}
+          </p>
+        </label>
+
         <TextInput
           form={form}
           name="title"
@@ -170,10 +259,6 @@ const DashboardAddPage = ({ ad }) => {
           isError={isError}
           changehandler={changehandler}
         />
-        <input type="file" name="images" onChange={changehandler} />
-        {fileURL && (
-          <Image src={fileURL ?? ""} width={300} height={300} alt="image" />
-        )}
 
         <RadioList setForm={setForm} form={form} />
 
