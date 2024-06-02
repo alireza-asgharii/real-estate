@@ -5,11 +5,11 @@ import { categoris } from "@/constant/icons";
 import supabase from "@/lib/supabase";
 
 const Card = async ({ data: { category, title, location, price, images } }) => {
-  const { data } = supabase.storage.from("images2").getPublicUrl(images);
+  const { data } = supabase.storage.from("images2").getPublicUrl(images[0]);
 
   return (
     <div className="md:w-52">
-      <div className="rounded-md mb-2 overflow-hidden h-[140px]">
+      <div className="rounded-md mb-2 overflow-hidden h-[180px]">
         {!images && (
           <span className="border-2 rounded-md w-full h-full flex justify-center items-center">
             بدون تصاویر
@@ -19,8 +19,8 @@ const Card = async ({ data: { category, title, location, price, images } }) => {
           <Image
             className={`w-full h-full object-cover `}
             src={data.publicUrl}
-            width={300}
-            height={300}
+            width={500}
+            height={500}
             alt="image"
           />
         )}
