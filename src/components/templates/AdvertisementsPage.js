@@ -39,12 +39,12 @@ const AdvertisementsPage = ({ ads }) => {
           </ul>
         </div>
       </aside>
-      <section className="flex flex-wrap gap-2 border-2 rounded-md md:w-5/6 p-2">
+      <section className="flex flex-wrap gap-2 border-2 rounded-md md:w-5/6 p-2 ">
         {ads.length === 0 && <p>هیچ آگهی موجود نیست</p>}
         {ads.map((item) => (
           <Link
             href={`/advertisements/${item._id}`}
-            className="inline-blockw-full min-h-20 w-full md:w-fit md:min-w-52 sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors"
+            className="mx-auto md:mx-0 inline-blockw-full min-h-20 w-[250px] md:w-fit md:min-w-52 sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors"
             key={item._id}
           >
             <Card data={item} />

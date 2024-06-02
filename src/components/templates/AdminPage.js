@@ -21,7 +21,7 @@ const AdminPage = async () => {
           {ads.map((item) => (
             <div
               key={item._id}
-              className="md:min-w-52 min-h-40 border-2 rounded-md border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors"
+              className="relative md:min-w-52 min-h-40 border-2 rounded-md border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors"
             >
               <Link
                 href={`/dashbaord/admin/${item._id}`}
