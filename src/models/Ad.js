@@ -57,7 +57,7 @@ const adSchema = new Schema(
       default: "waiting",
     },
     images: {
-      type: String,
+      type: [String],
     },
   },
   { timestamps: true }
