@@ -23,7 +23,7 @@ const HomePage = () => {
         </div>
       </header>
 
-      <section className="text-center md:flex justify-center">
+      <section className="text-center flex justify-center flex-col md:flex-row">
         {types.map((item) => (
           <HomePageCard key={item} data={item} />
         ))}
