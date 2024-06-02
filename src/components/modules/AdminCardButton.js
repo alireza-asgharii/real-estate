@@ -1,14 +1,17 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { acceptAd, rejectAd } from "@/actions/adminActions";
 import Spiner from "./Spiner";
 import toast from "react-hot-toast";
 import { revalidate } from "@/actions/actions";
+import { GoKebabHorizontal } from "react-icons/go";
 
 const AdminCardButton = ({ adsId }) => {
   const [rejectAdPending, startRejectAd] = useTransition();
   const [acceptAdPending, startAcceptAd] = useTransition();
+  const [isOpen, setOpen] = useState(false);
+  const [editPending, setEditPending] = useState(false);
 
   const rejectAdHandler = (e, adsId) => {
     startRejectAd(async () => {
@@ -19,8 +22,8 @@ const AdminCardButton = ({ adsId }) => {
         return;
       }
       toast.success(res.message);
-      revalidate('/dashboard/admin')
-      revalidate('/advertisements')
+      revalidate("/dashboard/admin");
+      revalidate("/advertisements");
     });
   };
 
@@ -33,42 +36,69 @@ const AdminCardButton = ({ adsId }) => {
         return;
       }
       toast.success(res.message);
-      revalidate('/dashboard/admin')
-      revalidate('/advertisements')
+      revalidate("/dashboard/admin");
+      revalidate("/advertisements");
     });
   };
 
+  const openHandler = () => {
+    setOpen((prevState) => !prevState);
+  };
+
+  const closeHandler = () => {
+    setOpen(false);
+  };
+
+  const fixHandler = (e) => {
+    e.preventDefault();
+  };
+
+  const editOpenHandler = (e) => {
+    setEditPending(true);
+  };
+
   return (
-    <div className="flex justify-between mt-3 p-2">
-      <button
-        disabled={acceptAdPending}
-        onClick={(e) => acceptAdHandler(e, adsId)}
-        title="انتشار آگهی"
-        className={`flex items-center justify-center min-w-12 border-2 px-2 py-1 rounded-md text-xs border-green-500 transition-colors hover:bg-green-500 hover:text-white ${
-          acceptAdPending ? "bg-green-500" : ""
-        }`}
-      >
-        {acceptAdPending ? (
-          <Spiner w="w-3" h="h-3" border="border-2" />
-        ) : (
-          <span>انتشار آگهی</span>
-        )}{" "}
-      </button>
-      <button
-        disabled={rejectAdPending}
-        onClick={(e) => rejectAdHandler(e, adsId)}
-        title="رد کردن آگهی"
-        className={`flex items-center justify-center min-w-12 border-2 px-2 py-1 rounded-md text-xs border-red-400 transition-colors ${
-          rejectAdPending ? "bg-red-400" : ""
-        } hover:bg-red-400 hover:text-white disabled:cursor-not-allowed`}
-      >
-        {rejectAdPending ? (
-          <Spiner w="w-3" h="h-3" border="border-2" />
-        ) : (
-          <span>رد کردن</span>
-        )}
-      </button>
-    </div>
+    <>
+      <div className="absolute bottom-0 left-1">
+        <div className="relative" tabIndex="0" onBlur={closeHandler}>
+          <button
+            title="منو"
+            className="text-xl rounded-sm [&_svg]:h-4 z-10 bg-white"
+            onClick={openHandler}
+          >
+            <GoKebabHorizontal />
+          </button>
+          {isOpen && (
+            <div className="flex justify-between flex-col mb-3 w-28 absolute bg-white shadow-sm border-2 -top-14 left-0  rounded-md overflow-hidden">
+              <button
+                onClick={(e) => rejectAdHandler(e, adsId)}
+                onMouseDown={fixHandler}
+                disabled={rejectAdPending}
+                title="رد کردن آگهی"
+                className="flex items-center justify-center text-center px-2 py-1 text-xs  transition-colors hover:bg-gray-500 hover:text-white disabled:cursor-not-allowed"
+              >
+                <span className="pl-1">رد کردن</span>
+                {rejectAdPending && (
+                  <Spiner w="w-[10px]" h="h-[10px]" border="border-2" />
+                )}
+              </button>
+              <button
+                disabled={acceptAdPending}
+                onMouseDown={fixHandler}
+                onClick={(e) => acceptAdHandler(e, adsId)}
+                title="انتشار آگهی"
+                className={` flex items-center justify-center min-w-12 px-2 py-1 text-xs transition-colors hover:bg-gray-500 hover:text-white disabled:cursor-not-allowed`}
+              >
+                <span className="pl-1">انتشار آگهی</span>
+                {acceptAdPending && (
+                  <Spiner w="w-[10px]" h="h-[10px]" border="border-2" />
+                )}
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -15,6 +15,7 @@ const DashboardCard = ({ data }) => {
       {status === "verified" && (
         <span className="absolute top-2 left-1 text-xs  rounded-md px-1 py-[2px] bg-green-500 text-white">تایید شده</span>
       )}
+      <DashboardCardButton adsId={JSON.parse(JSON.stringify(_id))} />
       <Link
         title="مشاهده آگهی"
         href="/"
@@ -22,7 +23,6 @@ const DashboardCard = ({ data }) => {
       >
         <Card data={data} />
       </Link>
-      <DashboardCardButton adsId={JSON.parse(JSON.stringify(_id))} />
     </div>
   );
 };
