@@ -12,7 +12,7 @@ const DashboardPage = async () => {
         👋
       </h3>
       <p>آگهی های خود را میتوانید در این پنل ثبت کنید</p>
-      <div className="mt-32">
+      <div className="mt-2">
         <p className="bg-[#CDE8E5] rounded-md p-1 w-fit text-sm">
           <span className="text-black pl-3">تاریخ عضویت:</span>
           <span className="opacity-50">{toLocaleFormate(user.createdAt)}</span>

@@ -189,6 +189,7 @@ const DashboardAddPage = ({ ad }) => {
             </div>
           ))}
         </div>
+        <span className="p-2">تصاویر آگهی:</span>
         <label className="group overflow-hidden border-2 p-2 rounded-md flex items-center md:cursor-pointer">
           <input
             type="file"

@@ -32,7 +32,7 @@ const DashboardMenu = ({ data, open, setOpen }) => {
         <li>
           <MenuNavLink
             name="آگهی های من"
-            href="/dashboard/my-profile"
+            href="/dashboard/my-ads"
             fixHandler={fixHandler}
           />
         </li>

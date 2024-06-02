@@ -47,7 +47,7 @@ const TextInput = ({
           </span>
 
           <input
-            className={`px-2 w-full py-[5px] ${
+            className={`px-2 w-full py-[8px] ${
               type === "number" ? "appearance-none" : ""
             }  rounded-md outline-header-theme ${
               isError[name] ? "outline-red-400" : ""
@@ -84,7 +84,7 @@ const TextInput = ({
           </span>
 
           <textarea
-            className={`px-2 w-full py-[5px] resize-none inline-block rounded-md outline-none  transition-colors`}
+            className={`px-2 w-full py-[14px] resize-none inline-block rounded-md outline-none  transition-colors`}
             name={name}
             value={form[name]}
             onFocus={() => setFirst(true)}

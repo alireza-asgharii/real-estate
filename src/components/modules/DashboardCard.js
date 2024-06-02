@@ -5,7 +5,7 @@ import DashboardCardButton from "./DashboardCardButton";
 const DashboardCard = ({ data }) => {
   const { _id, status } = data;
   return (
-    <div className="w-full sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors relative">
+    <div className="w-[250px] mx-auto sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors relative">
       {status === "waiting" && (
         <span className="absolute top-2 left-1 text-xs  rounded-md px-1 py-[2px] bg-gray-500 text-white">در انتظار تایید</span>
       )}
