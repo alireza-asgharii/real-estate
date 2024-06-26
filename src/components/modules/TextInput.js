@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 const TextInput = ({
+  className,
   name,
   type,
   placeholder,
@@ -29,7 +30,7 @@ const TextInput = ({
       {!textArea && (
         <label
           name={name}
-          className={`border-2  ${
+          className={`${className} border-2  ${
             isError[name] && !isFocuse && fisrt ? "border-red-400" : ""
           } relative my-[7px] rounded-md`}
           onFocus={focusHandler}
@@ -40,7 +41,7 @@ const TextInput = ({
             className={`absolute text-sm text-gray-400 ${
               isFocuse || form[name].length !== 0
                 ? "top-[-13px] right-1 bg-white rounded-md px-1"
-                : "top-[7px] right-2"
+                : "top-[9px] right-2"
             }  select-none cursor-text transition-all`}
           >
             {placeholder}
@@ -66,7 +67,7 @@ const TextInput = ({
       {textArea && (
         <label
           name={name}
-          className={`border-2 ${isFocuse ? "border-header-theme" : ""} ${
+          className={`${className} border-2 ${isFocuse ? "border-header-theme" : ""} ${
             isError[name] && !isFocuse && fisrt ? "border-red-400" : ""
           } relative my-[7px] rounded-md`}
           onFocus={focusHandler}
