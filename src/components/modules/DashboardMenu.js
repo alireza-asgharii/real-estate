@@ -1,14 +1,29 @@
 import Profile from "./Profile";
 import MenuNavLink from "./MenuNavLink";
 import LogoutButton from "./LogoutButton";
+import { useEffect, useState } from "react";
 
 const DashboardMenu = ({ data, open, setOpen }) => {
+  const [user, setUser] = useState();
+
   const fixHandler = (e) => {
     e.preventDefault();
     setTimeout(() => {
       setOpen(false);
     }, 10);
   };
+
+  useEffect(() => {
+    const x = async () => {
+      const res = await fetch("/api/whoamI", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      setUser(data);
+    };
+    x();
+  }, []);
 
   return (
     <div
@@ -40,6 +55,22 @@ const DashboardMenu = ({ data, open, setOpen }) => {
           <MenuNavLink
             name="ثبت آگهی"
             href="/dashboard/add"
+            fixHandler={fixHandler}
+          />
+        </li>
+        {user?.user?.role === "ADMIN" && (
+          <li>
+            <MenuNavLink
+              name="پنل ادمین"
+              href="/dashboard/admin"
+              fixHandler={fixHandler}
+            />
+          </li>
+        )}
+        <li>
+          <MenuNavLink
+            name="تنظیمات"
+            href="/dashboard/settings"
             fixHandler={fixHandler}
           />
         </li>
