@@ -121,3 +121,35 @@ export const deleteAd = async (adId) => {
     };
   }
 };
+
+export const changeUserName = async (name) => {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/auth/signin");
+  }
+
+  try {
+    await connectDB();
+
+    if (!name) {
+      return {
+        error: "نام را وارد کنید",
+      };
+    }
+
+    const user = await User.findOneAndUpdate(
+      { email: session.user.email },
+      { name }
+    );
+
+    return {
+      message: "نام حساب کاربری تغیر یافت",
+      data: {name:user.name}
+    };
+  } catch (error) {
+    console.log(error.message);
+    return {
+      error: "مشکلی در سرور رخ داد",
+    };
+  }
+};
