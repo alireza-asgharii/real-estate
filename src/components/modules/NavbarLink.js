@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 const NavbarLink = ({ children, href, style }) => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <Link
       href={href}
