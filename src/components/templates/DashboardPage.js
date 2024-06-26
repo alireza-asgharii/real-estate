@@ -7,8 +7,7 @@ const DashboardPage = async () => {
   return (
     <div className="w-full">
       <h3 className="py-3">
-        سلام
-        {user?.name}
+        {user?.name ? `سلام ${user?.name.split(" ")[0]}` : "سلام"}
         👋
       </h3>
       <p>آگهی های خود را میتوانید در این پنل ثبت کنید</p>
