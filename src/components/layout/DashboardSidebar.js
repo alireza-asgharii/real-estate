@@ -29,6 +29,9 @@ const DashboardSidebar = async ({ role }) => {
               <NavLink name="پنل ادمین" href="/dashboard/admin" />
             </li>
           )}
+          <li>
+            <NavLink name="تنظیمات" href="/dashboard/settings" />
+          </li>
         </ul>
         <LogoutButton />
       </div>
