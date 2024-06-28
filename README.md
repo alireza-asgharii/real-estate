@@ -16,19 +16,19 @@ AZA Real Estate App | Full Stack - NextJS
 
 ### ## نصب
 
-1. Clone the repository:
+1. کلون کردن ریپازیتوری:
 
 ```bash
 git clone https://github.com/alireza-asgharii/real-estate.git
 ```
 
-3. Install dependencies:
+2. نصب:
 
 ```bash
 npm install
 ```
 
-4. Start the development server:
+4. اجرای پروژه بر روی هاست:
 
 ```bash
 npm run dev
@@ -36,11 +36,8 @@ npm run dev
 
 ### ## استفاده
 
-1. Open your web browser and go to `http://localhost:3000`.
-2. You can search for a cryptocurrency by entering its name or symbol into the search bar.
-3. Once you have found a cryptocurrency, you can click on its name to view its details.
-
-
+1. مرورگر وب خود را باز کنید و به "http://localhost:3000" بروید.
+  
 
 ### ## مشارکت
 
