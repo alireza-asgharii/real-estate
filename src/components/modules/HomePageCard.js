@@ -4,7 +4,7 @@ import Link from "next/link";
 const HomePageCard = ({ data: { name, path } }) => {
   return (
     <Link
-      href="/"
+      href={`/advertisements?category=${path}`}
       className="inline-block my-2 md:p-1 md:mx-3 shadow-[1px_2px_8px] shadow-purple-200 rounded-md mx-auto w-[250px] md:w-[200px] hover:rotate-2 transition-transform"
     >
       <div className="h-3/4 object-cover">
