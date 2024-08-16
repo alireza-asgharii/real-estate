@@ -44,7 +44,7 @@ const AdvertisementsPage = ({ ads }) => {
         {ads.map((item) => (
           <Link
             href={`/advertisements/${item._id}`}
-            className="mx-auto md:mx-0 inline-blockw-full min-h-20 w-[250px] md:w-fit md:min-w-52 sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors"
+            className="mx-auto md:mx-0 inline-blockw-full min-h-20 w-5/6 md:w-fit md:min-w-52 sm:w-fit border-2 rounded-md p-2 border-[#BED7DC] hover:border-header-theme hover:shadow-lg transition-colors"
             key={item._id}
           >
             <Card data={item} />

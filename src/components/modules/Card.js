@@ -8,8 +8,8 @@ const Card = async ({ data: { category, title, location, price, images } }) => {
   const { data } = supabase.storage.from("images2").getPublicUrl(images[0]);
 
   return (
-    <div className="md:w-52">
-      <div className="rounded-md mb-2 overflow-hidden h-[180px]">
+    <div className="md:w-56">
+      <div className="rounded-md mb-2 overflow-hidden h-[250px]">
         {!images && (
           <span className="border-2 rounded-md w-full h-full flex justify-center items-center">
             بدون تصاویر
